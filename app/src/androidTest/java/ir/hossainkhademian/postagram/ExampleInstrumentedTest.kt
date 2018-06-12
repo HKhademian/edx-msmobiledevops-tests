@@ -7,18 +7,29 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
+import org.junit.Rule
 
-/**
- * Instrumented test, which will execute on an Android device.
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
+import com.microsoft.appcenter.espresso.Factory
+import org.junit.After
+
+
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
+	@Rule
+	@JvmField
+	val reportHelper = Factory.getReportHelper()!!
+
 	@Test
 	fun useAppContext() {
 		// Context of the app under test.
 		val appContext = InstrumentationRegistry.getTargetContext()
 		assertEquals("ir.hossainkhademian.postagram", appContext.packageName)
+
+		reportHelper.label("Start")
+	}
+
+	@After
+	fun theEnd() {
+		reportHelper.label("this is the end")
 	}
 }
